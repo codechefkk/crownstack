@@ -1,3 +1,6 @@
+// import collections
+const { User, UserToken } = require('../models');
+
 class RouteHelper {
   /**
    * @desc To verify the provided request
@@ -11,7 +14,25 @@ class RouteHelper {
     const { headers }  = req;
     const token = headers['token'] || '';
 
-    if (token !== 'OJaPcoJX0NKmsdraDUmI') {
+    let isInvalidRequest = false;
+
+    if (!token) {
+      isInvalidRequest = true;
+    } else {
+      const tokenRecord = await UserToken.findOne({ token });
+      const { userId = "" } = tokenRecord || {};
+      if (!userId) {
+        isInvalidRequest = true;
+      }
+      const user = await User.findOne({ id: userId }).lean();
+      if (!user) {
+        isInvalidRequest = true;
+      } else {
+        req.user = { ...user };
+      }
+    }
+
+    if (isInvalidRequest) {
       console.warn("Invalid Request");
       res.status(403).send({ status: 'error', error: "Invalid Request" });
     } else {

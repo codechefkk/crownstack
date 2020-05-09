@@ -1,5 +1,7 @@
+const mongoURL = process.env.MONGO_URL || "mongodb://localhost:27017/crownstack";
+
 const db = {
-  url: "mongodb://localhost:27017/crownstack",
+  url: mongoURL,
   options: {
     useNewUrlParser: true,
     // To make Mongoose's default index build use createIndex() instead of

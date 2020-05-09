@@ -26,7 +26,7 @@ const userSchema = new Schema({
     required: required('Password'),
   },
 }, {
-  collection: 'users',
+  collection: 'user',
   timestamps: true,
 });
 
@@ -54,6 +54,6 @@ userSchema.index({ "email.address": 1 }, {
   unique: true,
 });
 
-const Users   = mongoose.model('Users', userSchema);
+const User   = mongoose.model('User', userSchema);
 
-module.exports = Users;
+module.exports = User;

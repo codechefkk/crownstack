@@ -1,10 +1,10 @@
 // import collections
-const { Users, UserToken } = require('../models');
+const { User, UserToken } = require('../models');
 
 // import helpers
 const baseHelper = require('../utils/base');
 
-class UserController {
+class User {
   constructor() {
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -21,12 +21,12 @@ class UserController {
    * @apiParam {String} password Password of user.
    *
    * @apiSuccess {String} status ok.
-   * @apiSuccess {String} data Mongo Id of registered user as string.
+   * @apiSuccess {Boolean} data true.
    *
    * @apiSuccessExample Success-Response:
    *     {
    *       'status': 'ok',
-   *       'data': id
+   *       'data': true
    *     }
    *
    * @apiError InvalidRequest Invalid Request.
@@ -50,7 +50,7 @@ class UserController {
 
       const email = userEmail.toLowerCase();
 
-      const registeredUser = await Users.create({
+      const registeredUser = await User.create({
         firstName,
         lastName,
         email: {
@@ -61,7 +61,7 @@ class UserController {
       });
 
       baseHelper.log(`Registered User ${registeredUser.id}`)
-      return baseHelper.response(res, baseHelper.success(registeredUser.id));
+      return baseHelper.response(res, baseHelper.success(true));
     } catch (err) {
       baseHelper.warn(err.message);
       return baseHelper.response(res, baseHelper.error(err.message), 422);
@@ -104,7 +104,7 @@ class UserController {
 
       const email = userEmail.toLowerCase();
 
-      const user = await Users.findOne({ "email.address": email }).lean();
+      const user = await User.findOne({ "email.address": email }).lean();
 
       if (!user) {
         return baseHelper.response(res, baseHelper.error("Oops, Looks like you are not registered on Crownstack, Please register to login into our portal"));
@@ -128,4 +128,4 @@ class UserController {
   }
 }
 
-module.exports = new UserController();
+module.exports = new User();

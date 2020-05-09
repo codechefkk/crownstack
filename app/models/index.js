@@ -1,7 +1,11 @@
-const Users = require('./user');
+const Category = require('./category');
+const Product = require('./product');
+const User = require('./user');
 const UserToken = require('./userToken');
 
 module.exports = {
-  Users,
+  Category,
+  Product,
+  User,
   UserToken,
 };
