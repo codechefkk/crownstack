@@ -1,0 +1,33 @@
+{
+  "name": "crownstack",
+  "version": "1.0.0",
+  "description": "Crownstack Assessment",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf node_modules/ && npm i",
+    "start": "npm run build && nodemon",
+    "lint": "eslint './app'",
+    "lint-fix": "eslint './app' --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codechefkk/crownstack.git"
+  },
+  "author": "kartikay ranjan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codechefkk/crownstack/issues"
+  },
+  "homepage": "https://github.com/codechefkk/crownstack#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "nodemon": "^1.18.6"
+  }
+}
